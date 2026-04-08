@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import MenuFilters from './components/MenuFilters.vue'
 import MenuForm from './components/MenuForm.vue'
 import MenuItens from './components/MenuItens.vue'
@@ -8,13 +8,6 @@ const itens = ref([])
 const filtroAtual = ref('Todas')
 
 const categorias = ['Todas', 'Lanche', 'Bebida', 'Sobremesa']
-
-const form = reactive({
-  nome: '',
-  preco: null,
-  categoria: 'Lanche',
-  disponivel: true,
-})
 
 const itensFiltrados = computed(() => {
   if (filtroAtual.value === 'Todas') {
@@ -40,23 +33,11 @@ const precoMedioVisivel = computed(() => {
   return soma / itensFiltrados.value.length
 })
 
-const resetarFormulario = () => {
-  form.nome = ''
-  form.preco = null
-  form.categoria = 'Lanche'
-  form.disponivel = true
-}
-
-const adicionarItem = () => {
+const adicionarItem = (novoItem) => {
   itens.value.push({
     id: Date.now(),
-    nome: form.nome.trim(),
-    preco: Number(form.preco),
-    categoria: form.categoria,
-    disponivel: form.disponivel,
+    ...novoItem,
   })
-
-  resetarFormulario()
 }
 
 const removerItem = (id) => {
@@ -101,7 +82,7 @@ onMounted(() => {
       <p>Preco medio visivel: R$ {{ precoMedioVisivel.toFixed(2) }}</p>
     </section>
 
-    <MenuForm />
+    <MenuForm @add-item="adicionarItem" />
 
     <MenuFilters />
 
