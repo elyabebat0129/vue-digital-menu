@@ -46,8 +46,8 @@ npm run build
 
 Usado em `src/App.vue` para armazenar estados principais da aplicacao:
 
-- `itens` por volta da linha 7
-- `filtroAtual` por volta da linha 8
+- `itens`
+- `filtroAtual` 
 
 ### `computed`
 
