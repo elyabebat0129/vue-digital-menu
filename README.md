@@ -1,38 +1,107 @@
-# cardapio
+# Cardapio Digital
 
-This template should help get you started developing with Vue 3 in Vite.
+Aplicacao em Vue 3 criada com `npm` e `Vite` para gerenciar o cardapio de uma lanchonete ficticia. O sistema permite cadastrar itens, filtrar por categoria, visualizar um resumo dinamico e remover produtos cadastrados.
 
-## Recommended IDE Setup
+## Como rodar
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+### Instalar dependencias
 
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Rodar em desenvolvimento
 
-```sh
+```bash
 npm run dev
 ```
 
-### Compile and Minify for Production
+A aplicacao ficara disponivel no endereco mostrado pelo Vite, normalmente `http://localhost:5173`.
 
-```sh
+### Gerar build de producao
+
+```bash
 npm run build
 ```
+
+## Funcionalidades
+
+- Cadastro de itens com nome, preco, categoria e disponibilidade.
+- Listagem dos itens em cards.
+- Destaque visual para itens indisponiveis.
+- Filtro por categoria com destaque do filtro ativo.
+- Resumo com total de itens, total de disponiveis e preco medio visivel.
+- Remocao de itens do cardapio.
+
+## Estrutura dos componentes
+
+- `App.vue`: componente pai que centraliza os dados do cardapio, os calculos e a comunicacao entre os componentes.
+- `MenuForm.vue`: formulario de cadastro de novos itens.
+- `MenuFilters.vue`: botoes de filtro por categoria.
+- `MenuItens.vue`: exibicao dos cards e remocao dos itens.
+
+## Conceitos do Vue aplicados
+
+### `ref`
+
+Usado em `src/App.vue` para armazenar estados principais da aplicacao:
+
+- `itens` por volta da linha 7
+- `filtroAtual` por volta da linha 8
+
+### `computed`
+
+Usado em `src/App.vue` para dados derivados:
+
+- `itensFiltrados`: filtra a lista de itens de acordo com a categoria selecionada
+- `totalDisponiveis`: conta quantos itens estao disponiveis
+- `precoMedioVisivel`: calcula o preco medio dos itens que estao visiveis no filtro atual
+
+### `onMounted`
+
+Usado em `src/App.vue` para carregar itens iniciais quando o componente e montado.
+
+### `reactive`
+
+Usado em `src/components/MenuForm.vue` para controlar os campos do formulario.
+
+### `props`
+
+Usado para enviar dados do componente pai para os filhos:
+
+- `src/components/MenuFilters.vue` recebe `categorias` e `filtroAtual`
+- `src/components/MenuItens.vue` recebe `itens`
+
+### `emit`
+
+Usado para o componente filho avisar o pai quando algo acontece:
+
+- `src/components/MenuForm.vue` emite `add-item`
+- `src/components/MenuFilters.vue` emite `change-filter`
+- `src/components/MenuItens.vue` emite `remove-item`
+
+### `v-model`
+
+Usado em `src/components/MenuForm.vue` para ligar os campos do formulario ao estado reativo.
+
+### `v-for`
+
+Usado para renderizar listas:
+
+- categorias em `src/components/MenuFilters.vue`
+- itens em `src/components/MenuItens.vue`
+
+### `v-if` e `v-else`
+
+Usado em `src/components/MenuItens.vue` para mostrar a lista ou a mensagem de estado vazio.
+
+### classes dinamicas
+
+Usado para mudar o estilo conforme o estado:
+
+- filtro ativo em `src/components/MenuFilters.vue`
+- item indisponivel em `src/components/MenuItens.vue`
+
+## Observacoes
+
+- O `App.vue` ficou como dono dos dados, enquanto os componentes filhos recebem dados por `props` e se comunicam com ele usando `emit`.
