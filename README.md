@@ -100,7 +100,7 @@ Used in `src/components/MenuForm.vue` to control form fields.
 Used to pass data from parent to child components:
 
 * `MenuFilters.vue` receives categories and current filter
-* `Menuitems.vue` receives items
+* `Menuitens.vue` receives items
 
 ---
 
@@ -110,7 +110,7 @@ Used for child-to-parent communication:
 
 * `MenuForm.vue` emits `add-item`
 * `MenuFilters.vue` emits `change-filter`
-* `Menuitems.vue` emits `remove-item`
+* `Menuitens.vue` emits `remove-item`
 
 ---
 
@@ -125,13 +125,13 @@ Used in `MenuForm.vue` to bind form fields to reactive state.
 Used to render lists:
 
 * categories in `MenuFilters.vue`
-* items in `Menuitems.vue`
+* items in `Menuitens.vue`
 
 ---
 
 ### `v-if` / `v-else`
 
-Used in `Menuitems.vue` to display items or an empty state message.
+Used in `Menuitens.vue` to display items or an empty state message.
 
 ---
 
@@ -140,7 +140,7 @@ Used in `Menuitems.vue` to display items or an empty state message.
 Used to change styles based on state:
 
 * active filter in `MenuFilters.vue`
-* unavailable item in `Menuitems.vue`
+* unavailable item in `Menuitens.vue`
 
 ---
 
