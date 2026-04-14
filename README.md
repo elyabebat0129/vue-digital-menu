@@ -1,107 +1,150 @@
-# Cardapio Digital
+# Digital Menu App
 
-Aplicacao em Vue 3 criada com `npm` e `Vite` para gerenciar o cardapio de uma lanchonete ficticia. O sistema permite cadastrar itens, filtrar por categoria, visualizar um resumo dinamico e remover produtos cadastrados.
+A Vue 3 application built with Vite to manage a fictional snack bar menu.
+The system allows adding itens, filtering by category, viewing a dynamic summary, and removing products.
 
-## Como rodar
+---
 
-### Instalar dependencias
+## Getting Started
+
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-### Rodar em desenvolvimento
+### Run in development
 
 ```bash
 npm run dev
 ```
 
-A aplicacao ficara disponivel no endereco mostrado pelo Vite, normalmente `http://localhost:5173`.
+The app will be available at the address shown by Vite (usually http://localhost:5173).
 
-### Gerar build de producao
+---
+
+### Build for production
 
 ```bash
 npm run build
 ```
 
-## Funcionalidades
+---
 
-- Cadastro de itens com nome, preco, categoria e disponibilidade.
-- Listagem dos itens em cards.
-- Destaque visual para itens indisponiveis.
-- Filtro por categoria com destaque do filtro ativo.
-- Resumo com total de itens, total de disponiveis e preco medio visivel.
-- Remocao de itens do cardapio.
+## Features
 
-## Estrutura dos componentes
+* Add menu itens with name, price, category, and availability
+* Display itens as cards
+* Visual highlight for unavailable itens
+* Filter by category with active filter highlight
+* Dynamic summary showing:
 
-- `App.vue`: componente pai que centraliza os dados do cardapio, os calculos e a comunicacao entre os componentes.
-- `MenuForm.vue`: formulario de cadastro de novos itens.
-- `MenuFilters.vue`: botoes de filtro por categoria.
-- `MenuItens.vue`: exibicao dos cards e remocao dos itens.
+  * total itens
+  * available itens
+  * average price
+* Remove itens from the menu
 
-## Conceitos do Vue aplicados
+---
+
+## Component Structure
+
+* **App.vue**
+  Main component responsible for managing state, calculations, and communication between components
+
+* **MenuForm.vue**
+  Form to add new itens
+
+* **MenuFilters.vue**
+  Category filter buttons
+
+* **MenuItens.vue**
+  Displays item cards and handles item removal
+
+---
+
+## Vue Concepts Used
 
 ### `ref`
 
-Usado em `src/App.vue` para armazenar estados principais da aplicacao:
+Used in `src/App.vue` to store main application state:
 
-- `itens`
-- `filtroAtual` 
+* `itens`
+* `filtroAtual`
+
+---
 
 ### `computed`
 
-Usado em `src/App.vue` para dados derivados:
+Used in `src/App.vue` for derived data:
 
-- `itensFiltrados`: filtra a lista de itens de acordo com a categoria selecionada
-- `totalDisponiveis`: conta quantos itens estao disponiveis
-- `precoMedioVisivel`: calcula o preco medio dos itens que estao visiveis no filtro atual
+* `itensFiltrados` → filters itens based on selected category
+* `totalDisponiveis` → counts available itens
+* `precoMedioVisivel` → calculates average price of visible itens
+
+---
 
 ### `onMounted`
 
-Usado em `src/App.vue` para carregar itens iniciais quando o componente e montado.
+Used in `src/App.vue` to load initial itens when the component is mounted.
+
+---
 
 ### `reactive`
 
-Usado em `src/components/MenuForm.vue` para controlar os campos do formulario.
+Used in `src/components/MenuForm.vue` to control form fields.
+
+---
 
 ### `props`
 
-Usado para enviar dados do componente pai para os filhos:
+Used to pass data from parent to child components:
 
-- `src/components/MenuFilters.vue` recebe `categorias` e `filtroAtual`
-- `src/components/MenuItens.vue` recebe `itens`
+* `MenuFilters.vue` receives categories and current filter
+* `MenuItens.vue` receives itens
+
+---
 
 ### `emit`
 
-Usado para o componente filho avisar o pai quando algo acontece:
+Used for child-to-parent communication:
 
-- `src/components/MenuForm.vue` emite `add-item`
-- `src/components/MenuFilters.vue` emite `change-filter`
-- `src/components/MenuItens.vue` emite `remove-item`
+* `MenuForm.vue` emits `add-item`
+* `MenuFilters.vue` emits `change-filter`
+* `MenuItens.vue` emits `remove-item`
+
+---
 
 ### `v-model`
 
-Usado em `src/components/MenuForm.vue` para ligar os campos do formulario ao estado reativo.
+Used in `MenuForm.vue` to bind form fields to reactive state.
+
+---
 
 ### `v-for`
 
-Usado para renderizar listas:
+Used to render lists:
 
-- categorias em `src/components/MenuFilters.vue`
-- itens em `src/components/MenuItens.vue`
+* categories in `MenuFilters.vue`
+* itens in `MenuItens.vue`
 
-### `v-if` e `v-else`
+---
 
-Usado em `src/components/MenuItens.vue` para mostrar a lista ou a mensagem de estado vazio.
+### `v-if` / `v-else`
 
-### classes dinamicas
+Used in `MenuItens.vue` to display itens or an empty state message.
 
-Usado para mudar o estilo conforme o estado:
+---
 
-- filtro ativo em `src/components/MenuFilters.vue`
-- item indisponivel em `src/components/MenuItens.vue`
+### Dynamic classes
 
-## Observacoes
+Used to change styles based on state:
 
-- O `App.vue` ficou como dono dos dados, enquanto os componentes filhos recebem dados por `props` e se comunicam com ele usando `emit`.
+* active filter in `MenuFilters.vue`
+* unavailable item in `MenuItens.vue`
+
+---
+
+## Notes
+
+`App.vue` acts as the single source of truth, managing all data.
+Child components receive data via props and communicate back using emit.
